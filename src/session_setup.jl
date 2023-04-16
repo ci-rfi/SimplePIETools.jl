@@ -148,9 +148,3 @@ function ptycho_init(; max_attempts=3)
     project_folder = create_project_folder(max_attempts=max_attempts)
     create_data_folder(project_folder)
 end
-
-function main()
-    ptycho_init()
-end
-
-main()
