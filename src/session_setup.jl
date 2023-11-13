@@ -82,6 +82,8 @@ function create_project_folder(; max_attempts=3)
             Pkg.add("TOML")
             Pkg.add("Random")
             Pkg.add("ImageContrastAdjustment")
+            Pkg.add("HTTP")
+            Pkg.add("JSON")            
             Pkg.precompile()
             Pkg.build()
         catch e
