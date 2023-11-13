@@ -1,7 +1,7 @@
 name = "SimplePIETools"
 uuid = "35697508-26d7-4c4a-82c6-3a48c17cc2d4"
 authors = ["Chen Huang"]
-version = "0.0.1"
+version = "0.0.2"
 
 [deps]
 Dates = "ade2ca70-3891-5945-98fb-dc099432e06a"
