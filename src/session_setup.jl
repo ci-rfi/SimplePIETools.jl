@@ -99,8 +99,9 @@ end
 function create_data_folder(project_folder; storage_path="/home/ruska/Data/ssd")
     date_string = Dates.format(today(), "yyyy-mm-dd")
     data_folder = joinpath(storage_path, date_string)
+    process_folder = joinpath(storage_path, "processing", date_string)
     if isdir(project_folder)
-        print("Project folder $project_folder exists. Create data folder $data_folder for today? y/n[y]: ")
+        print("Project folder $project_folder exists. Create data folder $data_folder and processing folder $process_folder for today? y/n[y]: ")
         proceed = true
         user_input = readline()
         if user_input != ""
@@ -135,13 +136,21 @@ function create_data_folder(project_folder; storage_path="/home/ruska/Data/ssd")
                 @warn "Symbolic link to $data_folder already exists in $data_folder_link."
             end
 
-            process_folder = joinpath(project_folder, "data", "exp_pro", date_string)
             if !isdir(process_folder)
                 mkdir(process_folder)
                 @info "Processing folder $process_folder created.\n"
             else
                 @warn "Processing folder $process_folder already exists."
             end
+
+            process_folder_link = joinpath(project_folder, "data", "exp_pro", date_string)
+            if !isdir(process_folder_link) && !islink(process_folder_link)
+                symlink(process_folder, process_folder_link)
+                @info "Symbolic link to $process_folder created in $process_folder_link.\n"
+            else
+                @warn "Symbolic link to $process_folder already exists in $process_folder_link."
+            end
+
         end
     end
 end
