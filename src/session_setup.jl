@@ -86,8 +86,13 @@ function create_project_folder(; max_attempts=3)
             Pkg.add("JSON")            
             Pkg.precompile()
             Pkg.build()
-            template_file = joinpath(@__DIR__, "src", "script_templates", "ptycho_acquisition_template.jl")
-            cp(template_file, joinpath(project_folder, "scripts", "ptycho_acquisition_template.jl"))
+            template_files = ["ptycho_acquisition_template.jl", "convergence_semi_angle_calibration_template.jl", "experimental_condition_template.jl"]
+            for tf in template_files
+            f = joinpath(@__DIR__, "script_templates", tf)
+                open(joinpath(project_folder, "scripts", replace(tf, "_template" => "")), "w") do file
+                    write(file, replace(read(f, String), "PROJECT_NAME" => project_name, "SESSION_DATE" => Dates.format(today(), "yyyy-mm-dd")))
+                end
+            end
         catch e
             @error "Failed to create new project \"$project_name\" at $project_location."
             @error e
@@ -157,7 +162,7 @@ function create_data_folder(project_folder; storage_path="/home/ruska/Data/ssd")
     end
 end
 
-function ptycho_init(; max_attempts=3)
+function ptycho_init(; max_attempts=3, storage_path="/home/ruska/Data/ssd")
     project_folder = create_project_folder(max_attempts=max_attempts)
-    create_data_folder(project_folder)
+    create_data_folder(project_folder, storage_path=storage_path)
 end
