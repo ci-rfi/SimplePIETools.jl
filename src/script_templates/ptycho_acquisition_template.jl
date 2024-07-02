@@ -16,7 +16,7 @@ using HTTP
 using JSON
 using Medipix
 
-session = Dates.format(now(), "yyyy-mm-dd")
+session = "SESSION_DATE"
 sample_name = "SAMPLE_001"
 cl_aperture = "CLApt2-2"
 magnification = "120K"
@@ -35,7 +35,7 @@ notes = "XAu dataset for calibration"
 edm_ip = ip"172.22.73.9"
 medipix_ip = ip"172.22.73.9"
 qdscan_python_exe = "c:/Users/Merlin/Desktop/scan_engine_testing/test_env/Scripts/python.exe"
-qdscan_script_dir = "c:/Users/Merlin/Desktop/ScanEngine/chen"
+qdscan_script_dir = "c:/Users/Merlin/Desktop/ScanEngine/ruska"
 qdscan_script = "medipix_raster_acquisition_$(scan_size)x$(scan_size).py"
 
 # Medipix settings
@@ -113,7 +113,7 @@ end
 
 @async begin
     sleep(2) # Wait for Medipix to arm
-    ssh_command = `ssh merlin@$medipix_ip powershell $qdscan_python_exe $(qdscan_script_dir)/$qdscan_script`
+    ssh_command = `ssh merlin@$medipix_ip powershell $qdscan_python_exe $qdscan_script_dir/$qdscan_script`
     run(ssh_command)
 end
 
