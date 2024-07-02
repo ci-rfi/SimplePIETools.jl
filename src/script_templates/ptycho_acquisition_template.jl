@@ -96,7 +96,7 @@ New dataset: $data_timestamp
 """)
 readline()
 
-lg=TBLogger(datadir("exp_raw", session, "tensorboard_logs/" *  "_time_" * data_timestamp), min_level=Logging.Info)
+lg=TBLogger(datadir("exp_raw", session, "tensorboard_logs/" * data_timestamp), min_level=Logging.Info)
 
 with_logger(lg) do
     @info "ptycho_acquisition" session=session
