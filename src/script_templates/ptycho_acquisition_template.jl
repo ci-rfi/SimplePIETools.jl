@@ -158,6 +158,8 @@ recon_params = ReconParams(; iteration_start=1, iteration_end=nᵢ, alpha=0.01, 
 
 data_params_toml = to_toml(data_params)
 map(x -> h5write(x, "/data_params", data_params), datafiles)
+acquisition_script = read(@__FILE__, String)
+map(x -> h5write(x, "/acquisition_script", acquisition_script), datafiles)
 open(joinpath(dirname, "data_params.toml"), "w") do file
     print(file, data_params_toml)
 end
