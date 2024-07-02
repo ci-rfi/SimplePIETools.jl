@@ -86,6 +86,8 @@ function create_project_folder(; max_attempts=3)
             Pkg.add("JSON")            
             Pkg.precompile()
             Pkg.build()
+            template_file = joinpath(@__DIR__, "src", "script_templates", "ptycho_acquisition_template.jl")
+            cp(template_file, joinpath(project_folder, "scripts", "ptycho_acquisition_template.jl"))
         catch e
             @error "Failed to create new project \"$project_name\" at $project_location."
             @error e
